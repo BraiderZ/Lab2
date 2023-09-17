@@ -6,9 +6,11 @@ monitoreo () {
 		if pgrep -x $1 > /dev/null; then
 			echo "$1 se esta ejecutando"
 		else
-			echo "$1 no se esta ejecutando. Ejecutando proceso en background..."
+			echo "$1 no se esta ejecutando. Ejecutando proceso..."
+			$2 $3
 		fi
-		break
+
+		sleep 10
 	done
 }
 
@@ -19,8 +21,9 @@ fi
 
 proceso=$1
 comando=$2
-shift 1
-shift 2
+shift
+shift
 resto_comando=$@
+
 
 monitoreo "$proceso" "$comando" "$resto_comando"
