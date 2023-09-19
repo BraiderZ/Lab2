@@ -1,16 +1,22 @@
 #!/bin/bash
 
-if [ $# -lt 1 ]; then
+if [ $# -ne 1 ]; then
 	echo "Agregue como argumento un ejecutable"
 	exit 1
 fi
 
-ejecutable=$@
-
-if [ -x "$ejecutable" ]; then
-	echo "Este archivo es ejecutable"
+if [ -e $1 ]; then
+	echo "Realizando registro"
 else
-	echo "ESte archivo no es ejecutable"
+	echo "Este archivo no existe"
 	exit 1
 fi
 
+log="registro.log"
+
+# Ejecutamos el argumento
+./"$1" &
+
+pid_ejecutable=$!
+
+echo "$pid_ejecutable"
